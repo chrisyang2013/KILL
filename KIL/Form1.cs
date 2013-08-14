@@ -18,8 +18,8 @@ namespace KIL
         private Queue<IssueClass> allIssues = new Queue<IssueClass>();
         private Queue<IssueClass> activeIssues = new Queue<IssueClass>();
 
-        //string path = @"\\PRODDATA-DC1\Groups\Clients\WLP2\Known Issues.txt";
-        private string path = @"C:\Users\Zaidongy\Desktop\Known Issues.txt";
+        private string path = @"\\PRODDATA-DC1\Groups\Clients\WLP2\Known Issues.txt";
+        //private string path = @"C:\Users\Zaidongy\Desktop\Known Issues.txt";
 
         public Form1()
         {
