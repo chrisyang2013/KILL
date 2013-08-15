@@ -17,6 +17,7 @@ namespace KIL
 
         private Queue<IssueClass> allIssues = new Queue<IssueClass>();
         private Queue<IssueClass> activeIssues = new Queue<IssueClass>();
+        private Queue<IssueClass> completedIssues = new Queue<IssueClass>();
 
         private string path = @"\\PRODDATA-DC1\Groups\Clients\WLP2\Known Issues.txt";
         //private string path = @"C:\Users\Zaidongy\Desktop\Known Issues.txt";
@@ -27,19 +28,21 @@ namespace KIL
             displayContents();
         }
 
-        private void displayContents(bool showAll = true)
+        private void displayContents(bool showActive = false, bool showCompleted = false)
         {
             clearCheckBoxes();
-            getAllCheckBoxes();
-            getActiveCheckBoxes();
+            getAllIssues();
+            getSomeIssues();
 
-            if (showAll)
+            if (!showActive && !showCompleted)
                 addCheckBoxesToControl(allIssues);
-            else//show only active
+            else if (showActive)
                 addCheckBoxesToControl(activeIssues);
+            else //show completed
+                addCheckBoxesToControl(completedIssues);
         }
 
-        void getAllCheckBoxes()
+        void getAllIssues()
         {
             using (StreamReader reader = new StreamReader(path))
             {
@@ -106,12 +109,14 @@ namespace KIL
             }
         }
 
-        void getActiveCheckBoxes()
+        void getSomeIssues()
         {
             foreach (IssueClass issue in allIssues)
             {
                 if (!issue.Done)
                     activeIssues.Enqueue(issue);
+                else
+                    completedIssues.Enqueue(issue);
             }
         }
 
@@ -128,8 +133,9 @@ namespace KIL
                 catch (InvalidCastException) { ;}
             }
 
-            allIssues = new Queue<IssueClass>();
-            activeIssues = new Queue<IssueClass>();
+            allIssues.Clear();
+            activeIssues.Clear();
+            completedIssues.Clear();
         }
 
         void addCheckBoxesToControl(Queue<IssueClass> IssuesToBeAdded)
@@ -151,7 +157,15 @@ namespace KIL
         private void onlyShowActiveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             onlyShowActiveToolStripMenuItem.Checked = !onlyShowActiveToolStripMenuItem.Checked;
-            displayContents(!onlyShowActiveToolStripMenuItem.Checked);
+            onlyShowCompletedToolStripMenuItem.Checked = false;
+            displayContents(onlyShowActiveToolStripMenuItem.Checked, onlyShowCompletedToolStripMenuItem.Checked);
+        }
+
+        private void onlyShowCompletedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            onlyShowCompletedToolStripMenuItem.Checked = !onlyShowCompletedToolStripMenuItem.Checked;
+            onlyShowActiveToolStripMenuItem.Checked = false;
+            displayContents(onlyShowActiveToolStripMenuItem.Checked, onlyShowCompletedToolStripMenuItem.Checked);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -163,6 +177,8 @@ namespace KIL
         {
             newIssueForm issueForm = new newIssueForm();
             issueForm.ShowDialog();
+            if (issueForm.getIssue().Issue == "")
+                return;//user canceled
             using (StreamWriter writer = new StreamWriter(path, true))
             {
                 writer.WriteLine("");

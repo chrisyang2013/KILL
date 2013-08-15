@@ -38,6 +38,7 @@
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.updateButton = new System.Windows.Forms.Button();
+            this.onlyShowCompletedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,7 +90,8 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.onlyShowActiveToolStripMenuItem});
+            this.onlyShowActiveToolStripMenuItem,
+            this.onlyShowCompletedToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -97,7 +99,7 @@
             // onlyShowActiveToolStripMenuItem
             // 
             this.onlyShowActiveToolStripMenuItem.Name = "onlyShowActiveToolStripMenuItem";
-            this.onlyShowActiveToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.onlyShowActiveToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.onlyShowActiveToolStripMenuItem.Text = "Only show active";
             this.onlyShowActiveToolStripMenuItem.Click += new System.EventHandler(this.onlyShowActiveToolStripMenuItem_Click);
             // 
@@ -129,6 +131,13 @@
             this.updateButton.Text = "Update";
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
+            // 
+            // onlyShowCompletedToolStripMenuItem
+            // 
+            this.onlyShowCompletedToolStripMenuItem.Name = "onlyShowCompletedToolStripMenuItem";
+            this.onlyShowCompletedToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.onlyShowCompletedToolStripMenuItem.Text = "Only show completed";
+            this.onlyShowCompletedToolStripMenuItem.Click += new System.EventHandler(this.onlyShowCompletedToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -163,6 +172,7 @@
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem onlyShowActiveToolStripMenuItem;
         private System.Windows.Forms.Button updateButton;
+        private System.Windows.Forms.ToolStripMenuItem onlyShowCompletedToolStripMenuItem;
     }
 }
 
